@@ -10,7 +10,11 @@
 
 .Qr_container {
   width: 50vw;
-  height: 50vw;
+  transition: all 1s ease-out;
+}
+
+.qr_dialog {
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
