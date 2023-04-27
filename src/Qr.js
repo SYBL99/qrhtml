@@ -62,7 +62,9 @@ const Html5QrcodePlugin = (props) => {
                 <p>Должен быть QR</p>
                 <button onClick={(event)=>{event.target.closest('dialog').close()}}>close</button>
             </dialog>
-            <fieldset>
+            <form>
+                                <fieldset>
+
     <legend>Выберите камеру:</legend>
         {camera?.map((device, index) => <div key={device.id}>
             <input type="radio" id={device.id} name={device.label} value={device.id} defaultChecked={index === camera.length - 1}/>
@@ -70,6 +72,8 @@ const Html5QrcodePlugin = (props) => {
         </div>)}
 
     </fieldset>
+            </form>
+
         </>
 
     );
