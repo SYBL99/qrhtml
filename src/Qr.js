@@ -6,8 +6,7 @@ import { useEffect, useState } from 'react';
 const Html5QrcodePlugin = (props) => {
     const [camera, setCamera] = useState(null)
 
-
-
+    Html5Qrcode.getCameras().then(cameraDevices => setCamera(cameraDevices))
 
     const qrcodeRegionId = "html5qr";
 
@@ -62,7 +61,15 @@ const Html5QrcodePlugin = (props) => {
             <dialog className='Qr_container' id='show_qr'>
                 <p>Должен быть QR</p>
                 <button onClick={(event)=>{event.target.closest('dialog').close()}}>close</button>
-                </dialog>
+            </dialog>
+            <fieldset>
+    <legend>Выберите камеру:</legend>
+        {camera?.map(device => <div>
+            <input type="radio" id={device.id} name={device.label} value={device.id}></input>
+            <label for={device.label}>{device.label}</label>
+        </div>)}
+
+    </fieldset>
         </>
 
     );
