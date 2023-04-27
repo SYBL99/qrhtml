@@ -53,10 +53,10 @@ const Html5QrcodePlugin = (props) => {
 
         }
 
-    }, [activeCamera]);
+    }, [activeCamera, cameras]);
 
     return (
-        <>
+        cameras && activeCamera ? <> 
             <div className='Qr_container' id={qrcodeRegionId}/>
             <div id='output'> Сюда вывод</div>
             <dialog className='Qr_container' id='show_qr'>
@@ -66,9 +66,9 @@ const Html5QrcodePlugin = (props) => {
             <select id='camera_select' onChange={(e)=>{setActiveCamera(e.target.value)}}>
                 {cameras?.map( (camera, index) => <option key={camera.id} defaultValue={index === cameras.length - 1 ? true : false} value={camera.id}>{camera.label}</option>)}
             </select>
+            <div>{activeCamera}</div>
 
-        </>
-
+        </> : <div>гружу</div>
     );
 };
 
