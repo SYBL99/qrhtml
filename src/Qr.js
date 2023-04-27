@@ -65,7 +65,7 @@ const Html5QrcodePlugin = (props) => {
             <fieldset>
     <legend>Выберите камеру:</legend>
         {camera?.map((device, index) => <div key={device.id}>
-            <input type="radio" id={device.id} name={device.label} value={device.id} checked={index === camera.length - 1}/>
+            <input type="radio" id={device.id} name={device.label} value={device.id} defaultChecked={index === camera.length - 1}/>
             <label for={device.id}>{device.label}</label>
         </div>)}
 
