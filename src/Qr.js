@@ -7,7 +7,7 @@ const Html5QrcodePlugin = (props) => {
     const [cameras, setCameras] = useState(null)
     const [activeCamera, setActiveCamera] = useState(null)
 
-    Html5Qrcode.getCameras().then(cameraDevices => setCameras(cameraDevices))
+    Html5Qrcode.getCameras().then(cameraDevices => {setCameras(cameraDevices); setActiveCamera(cameraDevices[cameraDevices.length - 1].id)})
 
     const qrcodeRegionId = "html5qr";
 
@@ -19,7 +19,7 @@ const Html5QrcodePlugin = (props) => {
              * { id: "id", label: "label" }
              */
             if (devices && devices.length) {
-              const cameraId = document.querySelector('#camera_select').value;
+              const cameraId = activeCamera
               const html5QrCode = new Html5Qrcode(/* element id */ qrcodeRegionId);
                 html5QrCode.start(
                 cameraId, 
@@ -53,7 +53,7 @@ const Html5QrcodePlugin = (props) => {
 
         }
 
-    }, []);
+    }, [activeCamera]);
 
     return (
         <>
@@ -63,7 +63,7 @@ const Html5QrcodePlugin = (props) => {
                 <p>Должен быть QR</p>
                 <button onClick={(event)=>{event.target.closest('dialog').close()}}>close</button>
             </dialog>
-            <select id='camera_select'>
+            <select id='camera_select' onChange={(e)=>{setActiveCamera(e.target.value)}}>
                 {cameras?.map( (camera, index) => <option key={camera.id} defaultValue={index === cameras.length - 1 ? true : false} value={camera.id}>{camera.label}</option>)}
             </select>
 
