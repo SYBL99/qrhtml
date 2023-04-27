@@ -27,7 +27,7 @@ const Html5QrcodePlugin = (props) => {
                     fps: 10,   
                     qrbox: { width: 200, height: 200 }
                 },
-                (decodedText, decodedResult) => { html5QrCode.stop(); handleResolve(decodedText, decodedResult) },
+                (decodedText, decodedResult) => { html5QrCode.stop(); html5QrCode.clear(); handleResolve(decodedText, decodedResult) },
                 (errorMessage) => {
                     // parse error, ignore it.
                 })
