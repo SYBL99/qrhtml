@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 
 // Creates the configuration object for Html5QrcodeScanner
 const Html5QrcodePlugin = (props) => {
-    const [camera, setCamera] = useState(null)
+    const [cameras, setCameras] = useState(null)
+    const [activeCamera, setActiveCamera] = useState(null)
 
-    Html5Qrcode.getCameras().then(cameraDevices => setCamera(cameraDevices))
+    Html5Qrcode.getCameras().then(cameraDevices => setCameras(cameraDevices))
 
     const qrcodeRegionId = "html5qr";
 
@@ -18,7 +19,7 @@ const Html5QrcodePlugin = (props) => {
              * { id: "id", label: "label" }
              */
             if (devices && devices.length) {
-              var cameraId = devices[devices.length - 1].id; // потом заменить на фильтр фронталки
+              const cameraId = document.querySelector('#camera_select').value;
               const html5QrCode = new Html5Qrcode(/* element id */ qrcodeRegionId);
                 html5QrCode.start(
                 cameraId, 
@@ -62,17 +63,9 @@ const Html5QrcodePlugin = (props) => {
                 <p>Должен быть QR</p>
                 <button onClick={(event)=>{event.target.closest('dialog').close()}}>close</button>
             </dialog>
-            <form>
-                                <fieldset>
-
-    <legend>Выберите камеру:</legend>
-        {camera?.map((device, index) => <div key={device.id}>
-            <input type="radio" id={device.id} name={device.label} value={device.id} defaultChecked={index === camera.length - 1}/>
-            <label for={device.id}>{device.label}</label>
-        </div>)}
-
-    </fieldset>
-            </form>
+            <select id='camera_select'>
+                {cameras?.map( (camera, index) => <option key={camera.id} defaultValue={index === cameras.length - 1 ? true : false} value={camera.id}>{camera.label}</option>)}
+            </select>
 
         </>
 
